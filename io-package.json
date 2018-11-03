@@ -32,14 +32,14 @@
         },
 		"title": "TRONwallets",
         "titleLang": {
-            "en": "Tronwallets",
-            "de": "Tronwallets",
+            "en": "TRONwallets",
+            "de": "TRONwallets",
             "ru": "Адаптер шаблонов на основе Javascript / Node.js",
-            "pt": "Tronwallets",
-            "nl": "Tronwallets",
-            "fr": "Tronwallets",
-            "it": "Tronwallets",
-            "es": "Tronwallets"
+            "pt": "TRONwallets",
+            "nl": "TRONwallets",
+            "fr": "TRONwallets",
+            "it": "TRONwallets",
+            "es": "TRONwallets"
         },
         "desc": {
             "en": "ioBroker TRONwallets",
