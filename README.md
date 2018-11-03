@@ -1,5 +1,5 @@
 ![Logo](admin/tronwallets.png)
-# ioBroker.tronwallets
+# ioBroker.TRONwallets
 =================
 
 ## Changelog
