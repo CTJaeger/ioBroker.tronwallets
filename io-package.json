@@ -1,0 +1,89 @@
+{
+    "common": {
+        "name": "tronwallets",
+        "version": "0.0.1",
+        "news": {
+            "0.6.0": {
+                "en": "Support of admin3",
+                "de": "Unterstützung von admin3",
+                "ru": "Поддержка admin3",
+                "pt": "Suporte de admin3",
+                "nl": "Ondersteuning van admin3",
+                "fr": "Support de admin3",
+                "it": "Supporto di admin3",
+                "es": "Soporte de admin3"
+            },
+            "0.5.0": {
+                "en": "beta version",
+                "de": "Betaversion",
+                "ru": "Бета версия",
+                "pt": "Versão beta",
+                "fr": "Version bêta",
+                "nl": "Beta versie"
+            },
+            "0.0.1": {
+                "en": "initial adapter",
+                "de": "Initiale Version",
+                "ru": "Первоначальный адаптер",
+                "pt": "Versão inicial",
+                "fr": "Version initiale",
+                "nl": "Eerste release"
+            }
+        },
+		"title": "Tronwallets",
+        "titleLang": {
+            "en": "Tronwallets",
+            "de": "Tronwallets",
+            "ru": "Адаптер шаблонов на основе Javascript / Node.js",
+            "pt": "Tronwallets",
+            "nl": "Tronwallets",
+            "fr": "Tronwallets",
+            "it": "Tronwallets",
+            "es": "Tronwallets"
+        },
+        "desc": {
+            "en": "ioBroker tronwallets",
+            "de": "ioBroker Tronwallets",
+            "ru": "ioBroker Tronwallets как образец",
+            "pt": "Modelo de adaptador para o ioBroker",
+            "fr": "ioBroker adaptateur modèle",
+            "nl": "ioBroker Tronwallets",
+            "it": "Adattatore modello ioBroker",
+            "es": "Adaptador de plantilla ioBroker"
+        },
+        "authors": [
+            "Marcolotti <info@ct-j.de>"
+        ],
+        "docs": {
+            "en": "docs/en/admin.md",
+            "ru": "docs/ru/admin.md",
+            "de": "docs/de/admin.md",
+            "es": "docs/es/admin.md",
+            "it": "docs/it/admin.md",
+            "fr": "docs/fr/admin.md",
+            "nl": "docs/nl/admin.md",
+            "pt": "docs/pt/admin.md"
+        },
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "icon": "tronwallets.png",
+        "materialize": true,
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.tronwallets/master/admin/tronwallets.png",
+        "keywords": ["tronwallets", "vis", "GUI", "graphical", "scada"],
+        "readme": "https://github.com/ioBroker/ioBroker.tronwallets/blob/master/README.md",
+        "loglevel": "info",
+        "type": "general",
+        "license": "MIT",
+        "messagebox": false,
+        "restartAdapters": ["vis"]
+    },
+    "native": {
+        "test1": true,
+        "test2": 42,
+        "mySelect": "auto"
+    },
+    "objects": [
+
+    ]
+}

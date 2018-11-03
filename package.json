@@ -1,0 +1,46 @@
+{
+  "name": "iobroker.tronwallets",
+  "version": "0.6.0",
+  "description": "tronwallets",
+  "author": {
+    "name": "Marcolotti",
+    "email": "info@ct-j.de"
+  },
+  "contributors": [
+    {
+      "name": "Marcolotti",
+      "email": "info@ct-j.de"
+    }
+  ],
+  "homepage": "https://github.com/ioBroker/ioBroker.tronwallets",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "tronwallets",
+    "Smart Home",
+    "home automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ioBroker/ioBroker.tronwallets.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "mocha": "^4.1.0",
+    "chai": "^4.1.2"
+  },
+  "main": "main.js",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha --exit"
+  },
+  "bugs": {
+    "url": "https://github.com/ioBroker/ioBroker.tronwallets/issues"
+  },
+  "readmeFilename": "README.md",
+  "readme": "![Logo](admin/tronwallets.png)\n# ioBroker.tronwallets\n=================\n\nThis adapter is a tronwallets for the creation of an ioBroker adapter. You do not need it at least that you plan developing your own adapter.\n\nIt includes both code running within iobroker and as vis widget. If you only plan to create a vis widget then you should use the [iobroker.vis-tronwallets](https://github.com/ioBroker/ioBroker.vis-tronwallets) instead.\n\n## Steps \n1. download and unpack this packet from github ```https://github.com/ioBroker/ioBroker.tronwallets/archive/master.zip```\n  or clone git repository ```git clone --depth=1 https://github.com/ioBroker/ioBroker.tronwallets.git```\n\n2. download required npm packets. Write in ioBroker.tronwallets directory:\n\n  ```npm install```\n  \n3. set name of this tronwallets. Call\n  \n  ```gulp rename --name mynewname --email email@mail.com --author \"Author Name\"```\n  \n  *mynewname* must be **lower** case and with no spaces.\n\n  If gulp is not available, install gulp globally:\n  \n  ```npm install -g gulp-cli```\n \n4. rename directory from *ioBroker.tronwallets* (can be *ioBroker.tronwallets-master*) to *iobroker.mynewname*\n\n5. to use this tronwallets you should copy it into *.../iobroker/node_modules* directory and then create an instance for it with iobroker.admin\n\n6. create your adapter:\n\n  * you might want to start with main.js (code running within iobroker) and admin/index.html (the adapter settings page).\n\n  * [Adapter-Development-Documentation](https://github.com/ioBroker/ioBroker/wiki/Adapter-Development-Documentation),\n  \n  * [Installation, setup and first steps with an ioBroker Development Environment](https://github.com/ioBroker/ioBroker/wiki/Installation,-setup-and-first-steps-with-an-ioBroker-Development-Environment)\n  \n  * [Write and debug vis widgets](https://github.com/ioBroker/ioBroker/wiki/How-to-debug-vis-and-to-write-own-widget-set)\n  \n  * files under the www folders are made available under http://&lt;iobrokerIP&gt;:8082/&lt;adapter-name&gt;/\n    * for this to work the iobroker.vis adapter has to be installed\n    * delete this folder if you do not plan to export any files this way\n    * call ```iobroker upload <adapter-name>``` after you change files in the www folder to get the new files uploaded to vis\n  * the widget folder contains an example of a vis widget\n    * you might want to start with *widget/<adapter-name>.html* and *widget/js/<adapter-name>.js*\n    * call ```iobroker visdebug <adapter-name>``` to enable debugging and upload widget to \"vis\". (This works only from V0.7.15 of js-controller)\n    * If you do not plan to export any widget then delete the whole widget folder and remove the ```\"restartAdapters\": [\"vis\"]``` statement from *io-package.json*\n    * After admin/index.html is changed you must execute ```iobroker upload mynewname``` to see changes in admin console. The same is valid for any files in *admin* and *www* directory  \n\n7. change version: edit package.json and then call ```grunt p``` in your adapter directory.\n  \n8. share it with the community\n\n## Requirements\n* your github repository must have name \"ioBroker.<adaptername>\". **B** is capital in \"ioBroker\", but in the package.json the *name* must be low case, because npm does not allow upper case letters.\n* *title* in io-package.json (common) is simple short name of adapter in english. *titleLang* is object that consist short names in many languages. *Lang* ist not german Länge, but english LANGuages.\n* Do not use in the title the words \"ioBroker\" or \"Adapter\". It is clear anyway, that it is adapter for ioBroker.   \n\n## Changelog\n\n### 0.6.0 (2017.01.02)\n* (bluefox) Support of admin3\n\n### 0.5.0\n* (vegetto) include vis widget\n\n### 0.4.0\n* (bluefox) fix errors with grunt\n\n### 0.2.0\n* (bluefox) initial release\n\n## License\nThe MIT License (MIT)\n\nCopyright (c) 2018 Marcolotti <info@ct-j.de>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.\n",
+  "_id": "iobroker.tronwallets@0.6.0",
+  "_shasum": "f08af525252cd1e8e22e1152e2ca8ab650e8bef9",
+  "_from": "node_modules\\ioBroker.tronwallets",
+  "_resolved": "file:node_modules\\ioBroker.tronwallets"
+}
