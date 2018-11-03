@@ -1,6 +1,6 @@
 {
     "common": {
-        "name": "tronwallets",
+        "name": "TRONwallets",
         "version": "0.0.1",
         "news": {
             "0.6.0": {
@@ -30,7 +30,7 @@
                 "nl": "Eerste release"
             }
         },
-		"title": "Tronwallets",
+		"title": "TRONwallets",
         "titleLang": {
             "en": "Tronwallets",
             "de": "Tronwallets",
@@ -42,12 +42,12 @@
             "es": "Tronwallets"
         },
         "desc": {
-            "en": "ioBroker tronwallets",
-            "de": "ioBroker Tronwallets",
-            "ru": "ioBroker Tronwallets как образец",
+            "en": "ioBroker TRONwallets",
+            "de": "ioBroker TRONwallets",
+            "ru": "ioBroker TRONwallets как образец",
             "pt": "Modelo de adaptador para o ioBroker",
             "fr": "ioBroker adaptateur modèle",
-            "nl": "ioBroker Tronwallets",
+            "nl": "ioBroker TRONwallets",
             "it": "Adattatore modello ioBroker",
             "es": "Adaptador de plantilla ioBroker"
         },
@@ -66,12 +66,12 @@
         },
         "platform": "Javascript/Node.js",
         "mode": "daemon",
-        "icon": "tronwallets.png",
+        "icon": "tron.png",
         "materialize": true,
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.tronwallets/master/admin/tronwallets.png",
-        "keywords": ["tronwallets", "vis", "GUI", "graphical", "scada"],
-        "readme": "https://github.com/ioBroker/ioBroker.tronwallets/blob/master/README.md",
+        "extIcon": "https://raw.githubusercontent.com/CTJaeger/ioBroker.TRONwallets/master/admin/tron.png",
+        "keywords": ["TRONwallets", "Cryptocurrency"],
+        "readme": "https://github.com/ioBroker/ioBroker.TRONwallets/blob/master/README.md",
         "loglevel": "info",
         "type": "general",
         "license": "MIT",
