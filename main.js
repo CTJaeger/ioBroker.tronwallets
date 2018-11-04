@@ -58,7 +58,37 @@ adapter.on('message', function (obj) {
 // is called when databases are connected and adapter received configuration.
 // start here!
 adapter.on('ready', function () {
-        main();
+    adapter.createState('', 'General', 'BTCUSDT', {
+        name: 'BTCUSDT',
+        def: 0,
+        type: 'number',
+        read: 'true',
+        write: 'true',
+        role: 'value',
+        desc: 'BTCUSDT',
+        unit: 'USDT'
+    });
+    adapter.createState('', 'General', 'TRXUSDT', {
+        name: 'TRXUSDT',
+        def: 0,
+        type: 'number',
+        read: 'true',
+        write: 'true',
+        role: 'value',
+        desc: 'TRXUSDT',
+        unit: 'USDT'
+    });
+    adapter.createState('', 'General', 'TRXBTC', {
+        name: 'TRXBTC',
+        def: 0,
+        type: 'number',
+        read: 'true',
+        write: 'true',
+        role: 'value',
+        desc: 'TRXBTC',
+        unit: 'BTC'
+    });
+    main();
 });
 
 
@@ -114,6 +144,24 @@ function main() {
         adapter.setState(adapter.namespace + '.' + name + '.allowanceStr', werte.allowanceStr);
     });
     };
+    bina();
+}
+
+function bina() {
+
+    request(btcusdt, function(err, stat, body) {
+        var werte=JSON.parse(body);
+        adapter.setState(adapter.namespace + '.General.BTCUSDT', werte.price);
+    });
+    request(trxusdt, function(err, stat, body) {
+        var werte=JSON.parse(body);
+        adapter.setState(adapter.namespace + '.General.TRXUSDT', werte.price);
+    });
+    request(trxbtc, function(err, stat, body) {
+        var werte=JSON.parse(body);
+        adapter.setState(adapter.namespace + '.General.TRXBTC', werte.price);
+    });
+
 }
 
 
