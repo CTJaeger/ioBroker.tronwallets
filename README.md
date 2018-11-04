@@ -9,7 +9,13 @@
 [![NPM](https://nodei.co/npm/iobroker.tronwallets.png?downloads=true)](https://nodei.co/npm/iobroker.tronwallets/)
 
 ## Description of Adapter
-This adapter allows you to read the TRON Wallet data using the trxplorer API. Any number of wallets can be read.
+This adapter allows you to read the TRON Wallet data using the trxplorer API. Any number of wallets can be read. Also, the current price of BTC and TRX is pulled by the Binance API.
+
+## SAFETY NOTICE
+Please NEVER enter the private key in the input fields but ONLY the public wallet addresses of the TRON network.
+
+## In planning
+* calculations
 
 ## Changelog
 
