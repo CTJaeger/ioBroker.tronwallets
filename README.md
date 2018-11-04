@@ -6,7 +6,7 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.tronwallet.svg)](https://www.npmjs.com/package/iobroker.tronwallet)
 [![Tests](https://travis-ci.org/CTJaeger/ioBroker.tronwallet.svg?branch=master)](https://travis-ci.org/CTJaeger/ioBroker.tronwallet)
 
-[![NPM](https://nodei.co/npm/iobroker.sma-em.png?downloads=true)](https://nodei.co/npm/iobroker.tronwallet/)
+[![NPM](https://nodei.co/npm/iobroker.tronwallet.png?downloads=true)](https://nodei.co/npm/iobroker.tronwallet/)
 
 ## Changelog
 
