@@ -1,15 +1,13 @@
-/**
- *
- * TRONwallet adapter, Copyright CTJaeger 2018, MIT
- *
- */
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
 'use strict';
 
-const utils =   require(__dirname + '/lib/utils'); // Get common adapter utils
+const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 const request = require('request');
 const adapter = new utils.Adapter('tronwallets');
+const trxusdt = 'https://api.binance.com/api/v3/ticker/price?symbol=TRXUSDT';
+const trxbtc  = 'https://api.binance.com/api/v3/ticker/price?symbol=TRXBTC';
+const btcusdt = 'https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT';
 
 var result;
 var err;
@@ -88,14 +86,23 @@ adapter.on('ready', function () {
         desc: 'TRXBTC',
         unit: 'BTC'
     });
-    main();
+
+        main();
 });
 
-
+process.on('SIGINT', function () {
+    if (timer) clearTimeout(timer);
+});
 function main() {
-    var request = require('request');
-    var werte;
-    var url = 'https://api.trxplorer.io/v1/account/info?address=';
+    if (!adapter.config.devices) {
+        adapter.log.error('No wallets found');
+        return;
+    }
+    adapter.config.interval   = parseInt(adapter.config.interval,   10) || 30000;
+    if (adapter.config.interval < 5000) {
+        adapter.config.interval = 5000;
+    }
+    // Create State
     for (var u = 0; u < adapter.config.devices.length; u++) {
         //adapter.log.info(adapter.config.devices[u].name);
         const name = adapter.config.devices[u].name
@@ -120,31 +127,51 @@ function main() {
         adapter.createState(null, name, 'totalBalanceStr', 'value');
         adapter.createState(null, name, 'bandwidthStr', 'value');
         adapter.createState(null, name, 'allowanceStr', 'value');
-        request(url + ip, function (err, stat, body) {
-        werte = JSON.parse(body);
-        adapter.setState(adapter.namespace + '.' + name + '.name', werte.name);
-        adapter.setState(adapter.namespace + '.' + name + '.balance', werte.balance);
-        adapter.setState(adapter.namespace + '.' + name + '.address', werte.address);
-        adapter.setState(adapter.namespace + '.' + name + '.bandwith', werte.bandwith);
-        adapter.setState(adapter.namespace + '.' + name + '.allowance', werte.allowance);
-        adapter.setState(adapter.namespace + '.' + name + '.frozenBalance', werte.frozenBalance);
-        adapter.setState(adapter.namespace + '.' + name + '.totalBalance', werte.totalBalance);
-        adapter.setState(adapter.namespace + '.' + name + '.frozenExpire', werte.frozenExpire);
-        adapter.setState(adapter.namespace + '.' + name + '.createTime', werte.createTime);
-        adapter.setState(adapter.namespace + '.' + name + '.usdValue', werte.usdValue);
-        adapter.setState(adapter.namespace + '.' + name + '.transferFromCount', werte.transferFromCount);
-        adapter.setState(adapter.namespace + '.' + name + '.transferToCount', werte.transferToCount);
-        adapter.setState(adapter.namespace + '.' + name + '.tokensCount', werte.tokensCount);
-        adapter.setState(adapter.namespace + '.' + name + '.participationsCount', werte.participationsCount);
-        adapter.setState(adapter.namespace + '.' + name + '.tokensCount', werte.tokensCount);
-        adapter.setState(adapter.namespace + '.' + name + '.balanceStr', werte.balanceStr);
-        adapter.setState(adapter.namespace + '.' + name + '.frozenBalanceStr', werte.frozenBalanceStr);
-        adapter.setState(adapter.namespace + '.' + name + '.totalBalanceStr', werte.totalBalanceStr);
-        adapter.setState(adapter.namespace + '.' + name + '.bandwidthStr', werte.bandwidthStr);
-        adapter.setState(adapter.namespace + '.' + name + '.allowanceStr', werte.allowanceStr);
-    });
     };
-    bina();
+
+    setInterval(abruf, adapter.config.interval || 5000);
+}
+
+function abruf() {
+
+
+    var request = require('request');
+    var werte;
+    var url = 'https://api.trxplorer.io/v1/account/info?address=';
+    for (var u = 0; u < adapter.config.devices.length; u++) {
+        //adapter.log.info(adapter.config.devices[u].name);
+        const name = adapter.config.devices[u].name
+        const ip = adapter.config.devices[u].ip
+
+        request(url + ip, function (err, stat, body) {
+            werte = JSON.parse(body);
+            adapter.setState(adapter.namespace + '.' + name + '.name', werte.name);
+            adapter.setState(adapter.namespace + '.' + name + '.balance', werte.balance);
+            adapter.setState(adapter.namespace + '.' + name + '.address', werte.address);
+            adapter.setState(adapter.namespace + '.' + name + '.bandwith', werte.bandwith);
+            adapter.setState(adapter.namespace + '.' + name + '.allowance', werte.allowance);
+            adapter.setState(adapter.namespace + '.' + name + '.frozenBalance', werte.frozenBalance);
+            adapter.setState(adapter.namespace + '.' + name + '.totalBalance', werte.totalBalance);
+            adapter.setState(adapter.namespace + '.' + name + '.frozenExpire', werte.frozenExpire);
+            adapter.setState(adapter.namespace + '.' + name + '.createTime', werte.createTime);
+            adapter.setState(adapter.namespace + '.' + name + '.usdValue', werte.usdValue);
+            adapter.setState(adapter.namespace + '.' + name + '.transferFromCount', werte.transferFromCount);
+            adapter.setState(adapter.namespace + '.' + name + '.transferToCount', werte.transferToCount);
+            adapter.setState(adapter.namespace + '.' + name + '.tokensCount', werte.tokensCount);
+            adapter.setState(adapter.namespace + '.' + name + '.participationsCount', werte.participationsCount);
+            adapter.setState(adapter.namespace + '.' + name + '.tokensCount', werte.tokensCount);
+            adapter.setState(adapter.namespace + '.' + name + '.balanceStr', werte.balanceStr);
+            adapter.setState(adapter.namespace + '.' + name + '.frozenBalanceStr', werte.frozenBalanceStr);
+            adapter.setState(adapter.namespace + '.' + name + '.totalBalanceStr', werte.totalBalanceStr);
+            adapter.setState(adapter.namespace + '.' + name + '.bandwidthStr', werte.bandwidthStr);
+            adapter.setState(adapter.namespace + '.' + name + '.allowanceStr', werte.allowanceStr);
+
+
+    });
+
+
+    };
+bina();
 }
 
 function bina() {
@@ -163,7 +190,4 @@ function bina() {
     });
 
 }
-
-
-
 
