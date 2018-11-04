@@ -2,14 +2,12 @@
 /*jslint node: true */
 'use strict';
 
-const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
+const utils =   require(__dirname + '/lib/utils'); // Get common adapter utils
 const request = require('request');
 const adapter = new utils.Adapter('tronwallets');
 
 var result;
 var err;
-var host  = '';
-var plug;
 var ip;
 var timer     = null;
 var stopTimer = null;
@@ -67,16 +65,49 @@ function main() {
         //adapter.log.info(adapter.config.devices[u].name);
         const name = adapter.config.devices[u].name
         const ip = adapter.config.devices[u].ip
+        adapter.createState(null, name, 'name', 'value');
         adapter.createState(null, name, 'balance', 'value');
-        adapter.createState(null, name, 'freezed', 'value');
+        adapter.createState(null, name, 'address', 'value');
+        adapter.createState(null, name, 'bandwith', 'value');
+        adapter.createState(null, name, 'allowance', 'value');
+        adapter.createState(null, name, 'frozenBalance', 'value');
+        adapter.createState(null, name, 'totalBalance', 'value');
+        adapter.createState(null, name, 'frozenExpire', 'value');
+        adapter.createState(null, name, 'createTime', 'value');
+        adapter.createState(null, name, 'usdValue', 'value');
+        adapter.createState(null, name, 'transferFromCount', 'value');
+        adapter.createState(null, name, 'transferToCount', 'value');
+        adapter.createState(null, name, 'tokensCount', 'value');
+        adapter.createState(null, name, 'participationsCount', 'value');
+        adapter.createState(null, name, 'tokensCount', 'value');
+        adapter.createState(null, name, 'balanceStr', 'value');
+        adapter.createState(null, name, 'frozenBalanceStr', 'value');
+        adapter.createState(null, name, 'totalBalanceStr', 'value');
+        adapter.createState(null, name, 'bandwidthStr', 'value');
+        adapter.createState(null, name, 'allowanceStr', 'value');
         request(url + ip, function (err, stat, body) {
-            werte = JSON.parse(body);
-
-
-        adapter.log.info(werte.balance);
+        werte = JSON.parse(body);
+        adapter.setState(adapter.namespace + '.' + name + '.name', werte.name);
+        adapter.setState(adapter.namespace + '.' + name + '.balance', werte.balance);
+        adapter.setState(adapter.namespace + '.' + name + '.address', werte.address);
+        adapter.setState(adapter.namespace + '.' + name + '.bandwith', werte.bandwith);
+        adapter.setState(adapter.namespace + '.' + name + '.allowance', werte.allowance);
+        adapter.setState(adapter.namespace + '.' + name + '.frozenBalance', werte.frozenBalance);
+        adapter.setState(adapter.namespace + '.' + name + '.totalBalance', werte.totalBalance);
+        adapter.setState(adapter.namespace + '.' + name + '.frozenExpire', werte.frozenExpire);
+        adapter.setState(adapter.namespace + '.' + name + '.createTime', werte.createTime);
+        adapter.setState(adapter.namespace + '.' + name + '.usdValue', werte.usdValue);
+        adapter.setState(adapter.namespace + '.' + name + '.transferFromCount', werte.transferFromCount);
+        adapter.setState(adapter.namespace + '.' + name + '.transferToCount', werte.transferToCount);
+        adapter.setState(adapter.namespace + '.' + name + '.tokensCount', werte.tokensCount);
+        adapter.setState(adapter.namespace + '.' + name + '.participationsCount', werte.participationsCount);
+        adapter.setState(adapter.namespace + '.' + name + '.tokensCount', werte.tokensCount);
+        adapter.setState(adapter.namespace + '.' + name + '.balanceStr', werte.balanceStr);
+        adapter.setState(adapter.namespace + '.' + name + '.frozenBalanceStr', werte.frozenBalanceStr);
+        adapter.setState(adapter.namespace + '.' + name + '.totalBalanceStr', werte.totalBalanceStr);
+        adapter.setState(adapter.namespace + '.' + name + '.bandwidthStr', werte.bandwidthStr);
+        adapter.setState(adapter.namespace + '.' + name + '.allowanceStr', werte.allowanceStr);
     });
-
-
     };
 }
 
