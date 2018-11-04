@@ -1,6 +1,11 @@
 ![Logo](admin/tron.png)
 # ioBroker.TRONwallets
 =================
+[![NPM version](http://img.shields.io/npm/v/iobroker.tronwallet.svg)](https://www.npmjs.com/package/iobroker.tronwallet)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.tronwallet.svg)](https://www.npmjs.com/package/iobroker.tronwallet)
+[![Tests](https://travis-ci.org/CTJaeger/ioBroker.tronwallet.svg?branch=master)](https://travis-ci.org/CTJaeger/ioBroker.tronwallet)
+
+[![NPM](https://nodei.co/npm/iobroker.sma-em.png?downloads=true)](https://nodei.co/npm/iobroker.tronwallet/)
 
 ## Changelog
 
