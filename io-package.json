@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "tronwallets",
-        "version": "0.0.1",
+        "version": "0.0.6",
         "news": {
             "0.6.0": {
                 "en": "Support of admin3",
