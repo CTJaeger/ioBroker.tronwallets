@@ -10,6 +10,9 @@
 
 ## Changelog
 
+### 0.0.6
+* (Marcolotti) Pre-Release
+
 ### 0.0.1
 * (Marcolotti) initial release
 
