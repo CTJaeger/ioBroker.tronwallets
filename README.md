@@ -8,6 +8,9 @@
 
 [![NPM](https://nodei.co/npm/iobroker.tronwallets.png?downloads=true)](https://nodei.co/npm/iobroker.tronwallets/)
 
+## Description of Adapter
+This adapter allows you to read the TRON Wallet data using the trxplorer API. Any number of wallets can be read.
+
 ## Changelog
 
 ### 0.0.6
