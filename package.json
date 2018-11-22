@@ -1,6 +1,6 @@
 {
   "name": "iobroker.tronwallets",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "TRONwallets",
   "author": {
     "name": "Marcolotti",
@@ -25,8 +25,7 @@
     "url": "git+https://github.com/CTJaeger/ioBroker.tronwallets.git"
   },
   "dependencies": {
-  "request": "^2.88.0",
-  "xml2js": "^0.4.19"
+  "request": "^2.88.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
