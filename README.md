@@ -18,10 +18,12 @@ Please NEVER enter the private key in the input fields but ONLY the public walle
 Of course I would be happy about a small donation in the form of TRX to the following wallet address :-)
 TAGxUeB8LoHAhtQwhknAp5nH4tWBSSj1qn
 
-## In planning
-* calculations
-
 ## Changelog
+
+### 0.0.7
+* (Marcolotti) 
+  - Add Token with calculation
+  - Fixes error handling
 
 ### 0.0.6
 * (Marcolotti) Pre-Release
