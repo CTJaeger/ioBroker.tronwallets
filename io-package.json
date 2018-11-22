@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "tronwallets",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
             "0.6.0": {
                 "en": "Support of admin3",
@@ -75,12 +75,9 @@
         "loglevel": "info",
         "type": "general",
         "license": "MIT",
-        "messagebox": false,
-        "restartAdapters": ["vis"]
+        "messagebox": false
     },
     "native": {
-        "test1": true,
-        "test2": 42,
         "mySelect": "auto"
     },
     "objects": [
