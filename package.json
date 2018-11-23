@@ -25,7 +25,8 @@
     "url": "git+https://github.com/CTJaeger/ioBroker.tronwallets.git"
   },
   "dependencies": {
-  "request": "^2.88.0"
+  "request": "^2.88.0",
+  "xmlhttprequest": "^1.0.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
