@@ -10,6 +10,7 @@ const trxbtc  = 'https://api.binance.com/api/v3/ticker/price?symbol=TRXBTC';
 const btcusdt = 'https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT';
 
 var result;
+var summe;
 var err;
 var ip;
 var timer     = null;
@@ -22,37 +23,6 @@ var url3 = 'https://api.trongrid.io/wallet/listexchanges';
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function () {
-
-});
-
-// is called if a subscribed object changes
-adapter.on('objectChange', function (id, obj) {
-    // Warning, obj can be null if it was deleted
-    adapter.log.info('objectChange ' + id + ' ' + JSON.stringify(obj));
-});
-
-// is called if a subscribed state changes
-adapter.on('stateChange', function (id, state) {
-    // Warning, state can be null if it was deleted
-    adapter.log.info('stateChange ' + id + ' ' + JSON.stringify(state));
-
-    // you can use the ack flag to detect if it is status (true) or command (false)
-    if (state && !state.ack) {
-        adapter.log.info('ack is not set!');
-    }
-});
-
-// Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
-adapter.on('message', function (obj) {
-    if (typeof obj === 'object' && obj.message) {
-        if (obj.command === 'send') {
-            // e.g. send email or pushover or whatever
-            console.log('send command');
-
-            // Send response in callback if required
-            if (obj.callback) adapter.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-        }
-    }
 
 });
 
@@ -107,50 +77,31 @@ function main() {
     if (adapter.config.interval < 5000) {
         adapter.config.interval = 5000;
     }
-    // Create State
-    for (var u = 0; u < adapter.config.devices.length; u++) {
-        //adapter.log.info(adapter.config.devices[u].name);
-        const name = adapter.config.devices[u].name
-        const ip = adapter.config.devices[u].ip
-        adapter.createState(null, name, 'Tokenbalance', 'value');
-        adapter.createState(null, name, 'name', 'value');
-        adapter.createState(null, name, 'balance', 'value');
-        adapter.createState(null, name, 'address', 'value');
-        adapter.createState(null, name, 'bandwith', 'value');
-        adapter.createState(null, name, 'allowance', 'value');
-        adapter.createState(null, name, 'frozenBalance', 'value');
-        adapter.createState(null, name, 'totalBalance', 'value');
-        adapter.createState(null, name, 'frozenExpire', 'value');
-        adapter.createState(null, name, 'createTime', 'value');
-        adapter.createState(null, name, 'usdValue', 'value');
-        adapter.createState(null, name, 'transferFromCount', 'value');
-        adapter.createState(null, name, 'transferToCount', 'value');
-        adapter.createState(null, name, 'tokensCount', 'value');
-        adapter.createState(null, name, 'participationsCount', 'value');
-        adapter.createState(null, name, 'tokensCount', 'value');
-        adapter.createState(null, name, 'balanceStr', 'value');
-        adapter.createState(null, name, 'frozenBalanceStr', 'value');
-        adapter.createState(null, name, 'totalBalanceStr', 'value');
-        adapter.createState(null, name, 'bandwidthStr', 'value');
-        adapter.createState(null, name, 'allowanceStr', 'value');
-    };
 
     setInterval(abruf, adapter.config.interval || 5000);
 }
 
     function abruf() {
-    var summe=0;
+    exchange();
+
     var jso = '';
     var request = require('request');
     var werte;
     for (var u = 0; u < adapter.config.devices.length; u++) {
+
         const name = adapter.config.devices[u].name
         const ip = adapter.config.devices[u].ip
+
         getBody(url + ip, function (err, body) {
             if (err) {
                 adapter.log.debug('Fehler beim Abruf der Wallet' + name);
             } else {
-                werte = JSON.parse(body);
+                try {
+                    werte = JSON.parse(body);
+                } catch (e) {
+                    adapter.log.error ('Parsen der Wallet fehlgeschlagen' + e);
+                }
+                try {
                 adapter.setState(adapter.namespace + '.' + name + '.name', werte.name);
                 adapter.setState(adapter.namespace + '.' + name + '.balance', werte.balance);
                 adapter.setState(adapter.namespace + '.' + name + '.address', werte.address);
@@ -171,57 +122,65 @@ function main() {
                 adapter.setState(adapter.namespace + '.' + name + '.totalBalanceStr', werte.totalBalanceStr);
                 adapter.setState(adapter.namespace + '.' + name + '.bandwidthStr', werte.bandwidthStr);
                 adapter.setState(adapter.namespace + '.' + name + '.allowanceStr', werte.allowanceStr);
+                } catch (e) {
+                    stateserstellen();
+                }
+
             }
         });
         // Tokenbestand abrufen
         getBody(url2 + ip, function (err, body) {
-
             if (err) {
                 adapter.log.debug('Fehler beim Abruf des Tokenbestand.');
             } else {
                 // Array im Array parsen
-                var token = JSON.parse(body).data.assets;
-                //var jso = '[';
-                for (var key in token) {
-                    //adapter.createState(name, 'Token', 'JSONTable', 'value');
-                    adapter.createState(name, 'Token', key, 'value');
-                    adapter.setState(adapter.namespace + '.' + name + '.Token.' + key, token[key]);
-                    var price = round(getprice(key),6);
-                    summe = summe + (round(price,6) * token[key]);
-                    if (price !== null || price !== undefined || price !== '') {
-                        adapter.createState(name ,'Token', key + '-TRX','value');
-                        adapter.setState(adapter.namespace + '.' + name + '.Token.' + key + '-TRX', price);
-                        //jso = jso + '{"Token" : "' + key + '","Amount" : ' + token[key] + ',"Price" : ' + price + ',"Total" : ' + (round(price,6) * token[key]) + '}';
-                        //jso = jso + ',';
-                    }
+                try {
+                    var token = JSON.parse(body).data.assets;
+                } catch (e) {
+                    adapter.log.error ('Parsen der Token fehlgeschlagen' + e);
                 }
-                //jso = jso + ']';
-                //adapter.setState(adapter.namespace + '.' + name + '.Token.JSONTable', jso );
+                summe = 0;
+                for (var key in token) {
+
+                    var price = round(getprice(key),6);
+                    summe = summe + (price * token[key]);
+                    try {
+                        adapter.setState(adapter.namespace + '.' + name + '.Token.' + key, token[key]);
+                        adapter.setState(adapter.namespace + '.' + name + '.Token.' + key + '-TRX', price);
+                    } catch (e) {
+                        adapter.createState(name, 'Token', key, 'value');
+                        adapter.createState(name ,'Token', key + '-TRX','value');
+                    }
+
+                }
                 adapter.setState(adapter.namespace + '.' + name + '.Tokenbalance', round(summe,6));
                 adapter.log.debug(name + "->" + summe);
-                summe = 0;
-                //jso = '';
             }
 
         });
+        //summe = 0;
     }
     bina();
         };
     // Kurse von Binance abrufen
     function bina() {
+        try {
+            request(btcusdt, function (err, stat, body) {
+                var werte = JSON.parse(body);
+                adapter.setState(adapter.namespace + '.General.BTCUSDT', werte.price);
+            });
+            request(trxusdt, function (err, stat, body) {
+                var werte = JSON.parse(body);
+                adapter.setState(adapter.namespace + '.General.TRXUSDT', werte.price);
+            });
+            request(trxbtc, function (err, stat, body) {
+                var werte = JSON.parse(body);
+                adapter.setState(adapter.namespace + '.General.TRXBTC', werte.price);
+            });
+        } catch (e) {
+            adapter.log.error ('Abrufen der Preise von Binance fehlgeschlagen' + e);
+        }
 
-        request(btcusdt, function (err, stat, body) {
-            var werte = JSON.parse(body);
-            adapter.setState(adapter.namespace + '.General.BTCUSDT', werte.price);
-        });
-        request(trxusdt, function (err, stat, body) {
-            var werte = JSON.parse(body);
-            adapter.setState(adapter.namespace + '.General.TRXUSDT', werte.price);
-        });
-        request(trxbtc, function (err, stat, body) {
-            var werte = JSON.parse(body);
-            adapter.setState(adapter.namespace + '.General.TRXBTC', werte.price);
-        });
 
     }
 
@@ -231,25 +190,17 @@ function main() {
             adapter.log.debug('Fehler beim Abruf der Exchange Contracts');
         } else {
             dex = JSON.parse(body);
-        }
-    });
+            }
+        });
     }
 
     function getprice(token) {
-        //adapter.log.debug('Funktion getprice' + token);
         for (var cd = 0; cd < dex.exchanges.length; cd++) {
-            //var stid = gesa(dex.exchanges[cd].creator_address);
             var stto = hex2a(dex.exchanges[cd].first_token_id);
                 if (stto === token) {
                     var stc = dex.exchanges[cd].second_token_balance / 1000000;
                     var ftc = dex.exchanges[cd].first_token_balance;
                     var priced = stc / ftc;
-                    //adapter.log.debug('Funktion getprice' + priced);
-
-                    return (priced);
-                }
-                if (priced === null || priced === undefined) {
-                    priced = 0;
                     return (priced);
                 }
             }
@@ -282,3 +233,33 @@ function main() {
         var umrechnungsfaktor = Math.pow(10,dez);
         return Math.round(wert * umrechnungsfaktor) / umrechnungsfaktor;
 }
+    function stateserstellen() {
+        // Create State
+        for (var u = 0; u < adapter.config.devices.length; u++) {
+            //adapter.log.info(adapter.config.devices[u].name);
+            const name = adapter.config.devices[u].name
+            const ip = adapter.config.devices[u].ip
+            adapter.createState(null, name, 'Tokenbalance', 'value');
+            adapter.createState(null, name, 'name', 'value');
+            adapter.createState(null, name, 'balance', 'value');
+            adapter.createState(null, name, 'address', 'value');
+            adapter.createState(null, name, 'bandwith', 'value');
+            adapter.createState(null, name, 'allowance', 'value');
+            adapter.createState(null, name, 'frozenBalance', 'value');
+            adapter.createState(null, name, 'totalBalance', 'value');
+            adapter.createState(null, name, 'frozenExpire', 'value');
+            adapter.createState(null, name, 'createTime', 'value');
+            adapter.createState(null, name, 'usdValue', 'value');
+            adapter.createState(null, name, 'transferFromCount', 'value');
+            adapter.createState(null, name, 'transferToCount', 'value');
+            adapter.createState(null, name, 'tokensCount', 'value');
+            adapter.createState(null, name, 'participationsCount', 'value');
+            adapter.createState(null, name, 'tokensCount', 'value');
+            adapter.createState(null, name, 'balanceStr', 'value');
+            adapter.createState(null, name, 'frozenBalanceStr', 'value');
+            adapter.createState(null, name, 'totalBalanceStr', 'value');
+            adapter.createState(null, name, 'bandwidthStr', 'value');
+            adapter.createState(null, name, 'allowanceStr', 'value');
+        };
+
+    }
