@@ -20,6 +20,13 @@ TAGxUeB8LoHAhtQwhknAp5nH4tWBSSj1qn
 
 ## Changelog
 
+### 0.0.8
+* (Marcolotti)
+  - Add JSON Table of TRX-Token
+   -Prices of TRX-Token
+   -Fixes error handling
+   -refactoring
+
 ### 0.0.7
 * (Marcolotti) 
   - Add Token with calculation
