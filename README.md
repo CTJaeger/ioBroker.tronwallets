@@ -1,4 +1,4 @@
-![Logo](admin/tron-cn-enl.png) ![Logo](admin/TElogo.png)
+![Logo](admin/tron-cn-enl.png)
 # ioBroker.TRONwallets
 =================
 
