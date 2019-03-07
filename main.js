@@ -2,7 +2,7 @@
 /*jslint node: true */
 'use strict';
 
-const utils =   require(__dirname + '/lib/utils'); // Get common adapter utils
+const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const XMLHttp = require('xmlhttprequest');
 const request = require('request');
 const adapter = new utils.Adapter('tronwallets');
