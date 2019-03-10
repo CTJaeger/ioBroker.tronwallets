@@ -2,7 +2,7 @@
 # ioBroker.TRONwallets
 =================
 
-[![NPM version](http://img.shields.io/npm/v/iobroker.tronwallets.svg)](https://www.npmjs.com/package/iobroker.tronwallets)
+![Number of Installations](http://iobroker.live/badges/tronwallets-installed.svg) ![Number of Installations](http://iobroker.live/badges/tronwallets-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.tronwallets.svg)](https://www.npmjs.com/package/iobroker.tronwallets)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.tronwallets.svg)](https://www.npmjs.com/package/iobroker.tronwallets)
 [![Tests](https://travis-ci.org/CTJaeger/ioBroker.tronwallets.svg?branch=master)](https://travis-ci.org/CTJaeger/ioBroker.tronwallets)
 
