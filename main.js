@@ -26,9 +26,9 @@ var url2 = 'https://api.tronscan.org/api/grpc/solidity/getaccount/';
 var url3 = 'https://api.trongrid.io/wallet/listexchanges';
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
-adapter.on('unload', function () {
-
-});
+//adapter.on('unload', function () {
+//
+//});
 
 // is called when databases are connected and adapter received configuration.
 // start here!
